@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic
+namespace Data
 {
-    public class LogicAbstractApi
+    public abstract class DataAbstractApi
     {
     }
 }
