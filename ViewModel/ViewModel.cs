@@ -1,35 +1,36 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ViewModel.Base;
+using Logic;
+using Model;
 
 namespace ViewModel
 {
-    public class ViewModel
-    {
-        public class MainWindowViewModel : ViewModelBase
+    
+        public class ViewModelWindow : ViewModelBase
         {
-            public MainWindowViewModel() : this(Model.ModelAbstractApi.CreateApi()) { }
+            public ViewModelWindow() : this(ModelAbstractApi.CreateApi()) { }
 
-            private MainWindowViewModel(Model.ModelAbstractApi modelLayer)
+            private ViewModelWindow(ModelAbstractApi modelLayer)
             {
                 // Fields initialization
-                Logic.LogicAbstractApi logicLayer = new Logic.LogicApi();
-                _balls = new ObservableCollection<Logic.Ball>();
-                _radius = modelLayer.BallRadius;
+                LogicAbstractApi logicLayer = new LogicApi();
+                _balls = new ObservableCollection<Ball>();
+                _ballRadius = modelLayer.BallRadius;
                 _tableWidth = modelLayer.TableWidth;
                 _tableHeight = modelLayer.TableHeight;
-                var timer = new Timer();
+                var timer = new System.Timers.Timer();
 
                 // Commands initialization
-                GenerateCommand = new RelayCommand(() => logicLayer.GenerateHandler(Balls, BallsNumber, _radius, _tableWidth - _radius, _radius, _tableHeight - _radius));
-                StartMoving = new RelayCommand(() => logicLayer.MovingHandler(Balls, timer, BallsNumber, _radius, modelLayer.TableWidth, modelLayer.TableHeight));
+                GenerateCommand = new RelayCommand(() => logicLayer.GenerateHandler(Balls, BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius));
+                StartMoving = new RelayCommand(() => logicLayer.MovingHandler(Balls, timer, BallsNumber, _ballRadius, _tableWidth, _tableHeight));
                 StopMoving = new RelayCommand(() => logicLayer.Stop(timer));
                 ClearBoard = new RelayCommand(() => logicLayer.ClearBalls(timer, Balls));
             }
 
             private int _ballsNumber;
-            private readonly ObservableCollection<Logic.Ball> _balls;
-            private int _radius;
+            private readonly ObservableCollection<Ball> _balls;
+            private int _ballRadius;
             private readonly int _tableWidth;
             private readonly int _tableHeight;
 
@@ -46,16 +47,16 @@ namespace ViewModel
 
             public int Radius
             {
-                get => _radius;
+                get => _ballRadius;
                 set
                 {
-                    if (value == _radius) return;
-                    _radius = value;
+                    if (value == _ballRadius) return;
+                    _ballRadius = value;
                     RaisePropertyChanged();
                 }
             }
 
-            public ObservableCollection<Logic.Ball> Balls
+            public ObservableCollection<Ball> Balls
             {
                 get => _balls;
                 set
@@ -65,7 +66,7 @@ namespace ViewModel
                 }
             }
 
-            public int CanvasWidth
+            public int TableWidth
             {
                 get => _tableWidth;
                 set
@@ -75,7 +76,7 @@ namespace ViewModel
                 }
             }
 
-            public int CanvasHeight
+            public int TableHeight
             {
                 get => _tableHeight;
                 set
@@ -91,5 +92,5 @@ namespace ViewModel
             public ICommand ClearBoard { get; }
 
         }
-    }
+    
 }

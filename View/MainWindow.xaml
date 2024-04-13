@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View" xmlns:ViewModel="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:local="clr-namespace:View" 
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
         Title="Billiards" Height="auto" Width="auto">
+    
     <Window.DataContext>
-        <ViewModel:ViewModel/>
+        <vm:ViewModelWindow/>
     </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
@@ -22,10 +24,10 @@
                 <Button Name="StartButton" Content="START" Width="70" Margin="5" Background="Chartreuse" Command="{Binding StartMoving}"/>
             </StackPanel>
             <Separator Margin="0,5,0,10"/>
-            <ItemsControl ItemsSource="{Binding Coordinates, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ItemsControl ItemsSource="{Binding Balls, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" Background="Cyan"/>
+                        <Canvas Width="{Binding TableWidth}" Height="{Binding TableHeight}" Background="Cyan"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
@@ -36,7 +38,7 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="{Binding DataContext.Radius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Height="{Binding DataContext.Radius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Fill="Blue" />
+                        <Ellipse Width="{Binding DataContext.BallRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Height="{Binding DataContext.Radius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Fill="Blue" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
