@@ -10,13 +10,13 @@ namespace Logic
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public double direction { get; set; }
+        public (double moveX,double moveY) Direction { get; set; }
 
-        public Ball(double x, double y, double direction)
+        public Ball(double x, double y, (double moveX, double moveY) Direction)
         {
             this.X = x;
             this.Y = y;
-            this.direction = direction;
+            this.Direction = Direction;
         }
     }
 }
