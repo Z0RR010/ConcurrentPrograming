@@ -15,7 +15,7 @@ namespace ViewModel
             {
                 // Fields initialization
                 
-                _balls = new ObservableCollection<BallType>();
+                _balls = new ObservableCollection<IBallType>();
                 _ballRadius = modelLayer.BallRadius;
                 _tableWidth = modelLayer.TableWidth;
                 _borderWidth = modelLayer.BorderWidth;
@@ -31,7 +31,7 @@ namespace ViewModel
             }
 
             private int _ballsNumber;
-            private readonly ObservableCollection<BallType> _balls;
+            private readonly ObservableCollection<IBallType> _balls;
             private int _ballRadius;
             private readonly int _tableWidth;
             private readonly int _tableHeight;
@@ -59,7 +59,7 @@ namespace ViewModel
                 }
             }
 
-            public ObservableCollection<BallType> Balls
+            public ObservableCollection<IBallType> Balls
             {
                 get => _balls;
                 set

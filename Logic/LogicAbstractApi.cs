@@ -10,13 +10,13 @@ namespace Logic
 {
     public abstract class LogicAbstractApi
     {
-        public abstract void GenerateHandler(ICollection<BallType> balls, int ballsNumber, int minX, int maxX, int minY,
+        public abstract void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY,
         int maxY);
 
-        public abstract void MovingHandler(ObservableCollection<BallType> balls, System.Timers.Timer timer, int radius,
+        public abstract void MovingHandler(ObservableCollection<IBallType> balls, System.Timers.Timer timer, int radius,
             int maxX, int maxY);
 
-        public abstract void MoveBalls(ObservableCollection<BallType> balls, int radius, int maxX, int maxY);
+        public abstract void MoveBalls(ObservableCollection<IBallType> balls, int radius, int maxX, int maxY);
 
         public abstract void Stop(System.Timers.Timer timer);
 
