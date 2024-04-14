@@ -10,7 +10,7 @@ namespace Logic
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public (double moveX,double moveY) Direction { get; set; }
+        internal (double moveX,double moveY) Direction { get; set; }
 
         public Ball(double x, double y, (double moveX, double moveY) Direction)
         {

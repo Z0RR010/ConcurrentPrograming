@@ -13,7 +13,7 @@ namespace Logic
         public abstract void GenerateHandler(ICollection<Ball> coordinates, int ballsNumber, int minX, int maxX, int minY,
         int maxY);
 
-        public abstract void MovingHandler(ObservableCollection<Ball> coordinates, System.Timers.Timer timer, int ballsNumber, int radius,
+        public abstract void MovingHandler(ObservableCollection<Ball> coordinates, System.Timers.Timer timer, int radius,
             int maxX, int maxY);
 
         public abstract void MoveBall(ObservableCollection<Ball> coordinates, int radius, int maxX, int maxY);

@@ -22,8 +22,9 @@ namespace ViewModel
                 var timer = new System.Timers.Timer();
 
                 // Commands initialization
+                
                 GenerateCommand = new RelayCommand(() => logicLayer.GenerateHandler(Balls, BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius));
-                StartMoving = new RelayCommand(() => logicLayer.MovingHandler(Balls, timer, BallsNumber, _ballRadius, _tableWidth, _tableHeight));
+                StartMoving = new RelayCommand(() => logicLayer.MovingHandler(Balls, timer, _ballRadius, _tableWidth, _tableHeight));
                 StopMoving = new RelayCommand(() => logicLayer.Stop(timer));
                 ClearBoard = new RelayCommand(() => logicLayer.ClearBalls(timer, Balls));
             }
@@ -45,7 +46,7 @@ namespace ViewModel
                 }
             }
 
-            public int Radius
+            public int BallRadius
             {
                 get => _ballRadius;
                 set
@@ -90,6 +91,7 @@ namespace ViewModel
             public ICommand StartMoving { get; }
             public ICommand StopMoving { get; }
             public ICommand ClearBoard { get; }
+            
 
         }
     
