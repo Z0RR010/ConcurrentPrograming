@@ -18,6 +18,7 @@ namespace ViewModel
                 _balls = new ObservableCollection<Ball>();
                 _ballRadius = modelLayer.BallRadius;
                 _tableWidth = modelLayer.TableWidth;
+                _borderWidth = modelLayer.BorderWidth;
                 _tableHeight = modelLayer.TableHeight;
                 var timer = new System.Timers.Timer();
 
@@ -34,6 +35,7 @@ namespace ViewModel
             private int _ballRadius;
             private readonly int _tableWidth;
             private readonly int _tableHeight;
+            private readonly int _borderWidth;
 
             public int BallsNumber
             {
@@ -77,7 +79,17 @@ namespace ViewModel
                 }
             }
 
-            public int TableHeight
+            public int BorderWidth
+            {
+                get => _borderWidth;
+                set
+                {
+                    if (value.Equals(_borderWidth)) return;
+                    RaisePropertyChanged();
+                }
+            }
+
+        public int TableHeight
             {
                 get => _tableHeight;
                 set

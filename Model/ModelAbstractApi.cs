@@ -11,6 +11,7 @@ namespace Model
         public abstract int TableHeight { get; }
         public abstract int TableWidth { get; }
         public abstract int BallRadius { get; }
+        public abstract int BorderWidth { get; }
 
         public static ModelAbstractApi CreateApi()
         {

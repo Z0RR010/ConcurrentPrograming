@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
-using System.Xml.Serialization;
 using Timer = System.Timers.Timer;
 
 namespace Logic
@@ -8,16 +7,16 @@ namespace Logic
 
     public class LogicApi : LogicAbstractApi
     {
-        public override void GenerateHandler(ICollection<Ball> coordinates, int ballsNumber, int minX, int maxX, int minY, int maxY)
+        public override void GenerateHandler(ICollection<Ball> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
         {
             var randomGenerator = new Randomizer();
-            if (coordinates.Count != 0) return;
+            if (balls.Count != 0 || ballsNumber == 0) return;
             foreach (var i in Enumerable.Range(1,ballsNumber))
             {
                 var newBall = new Ball(randomGenerator.GenerateDouble(minX, maxX),
                     randomGenerator.GenerateDouble(minY, maxY),
                     randomGenerator.GenerateVector());
-                coordinates.Add(newBall);
+                balls.Add(newBall);
             }
         }
 
@@ -38,14 +37,14 @@ namespace Logic
             var copy = balls;
             for (var i = 0; i < balls.Count; i++)
             {
-            // Generate shifts
+            // Get shifts
                 var xShift = copy[i].Direction.moveX;
                 var yShift = copy[i].Direction.moveY;
                 var newBall = new Ball(copy[i].X + xShift, copy[i].Y + yShift, copy[i].Direction);
-                // Prevent exceeding canvas
-                if (newBall.X - radius < 0) newBall = new Ball(radius, newBall.Y, (-copy[i].Direction.moveX, copy[i].Direction.moveY));
+                // Bounce the balls
+                if (newBall.X < 0) newBall = new Ball(0, newBall.Y, (-copy[i].Direction.moveX, copy[i].Direction.moveY));
                 if (newBall.X + radius > maxX) newBall = new Ball(maxX - radius, newBall.Y, (-copy[i].Direction.moveX, copy[i].Direction.moveY));
-                if (newBall.Y - radius < 0) newBall = new Ball(newBall.X, radius, (copy[i].Direction.moveX, -copy[i].Direction.moveY));
+                if (newBall.Y < 0) newBall = new Ball(newBall.X, 0, (copy[i].Direction.moveX, -copy[i].Direction.moveY));
                 if (newBall.Y + radius > maxY) newBall = new Ball(newBall.X, maxY - radius, (copy[i].Direction.moveX, -copy[i].Direction.moveY));
                 copy[i] = newBall;
             }
