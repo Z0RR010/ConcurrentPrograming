@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:View" 
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="Billiards" Height="auto" Width="auto">
+        Title="Billiards" Height="auto" Width="auto" ResizeMode="CanMinimize">
     
     <Window.DataContext>
         <vm:ViewModelWindow/>
@@ -24,10 +24,11 @@
                 <Button Name="StartButton" Content="START" Width="70" Margin="5" Background="Chartreuse" Command="{Binding StartMoving}"/>
             </StackPanel>
             <Separator Margin="0,5,0,10"/>
+            <Border BorderThickness="5" BorderBrush="SaddleBrown" Width="{Binding BorderWidth}">
             <ItemsControl ItemsSource="{Binding Balls, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Width="{Binding TableWidth}" Height="{Binding TableHeight}" Background="Cyan"/>
+                        <Canvas Width="{Binding TableWidth}" Height="{Binding TableHeight}" Background="Green" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
@@ -38,10 +39,11 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="{Binding DataContext.BallRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Height="{Binding DataContext.BallRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Fill="Blue" />
+                        <Ellipse Width="{Binding DataContext.BallRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Height="{Binding DataContext.BallRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Fill="White" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            </Border>
             <Separator Margin="0,10,0,10"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="StopButton" Content="STOP" Width="100" Margin="5" Background="OrangeRed" Command="{Binding StopMoving}"/>
