@@ -53,7 +53,7 @@ namespace LogicUnitTest
         {
             // Arrange
             var logicApi = new LogicApi();
-            var balls = new List<Ball>();
+            var balls = new List<IBallType>();
             var ballsNumber = 5;
             var minX = 0;
             var maxX = 100;
@@ -76,7 +76,7 @@ namespace LogicUnitTest
         {
             // Arrange
             var logicApi = new LogicApi();
-            var balls = new ObservableCollection<Ball> { new Ball(0, 0, (0, 0)) };
+            var balls = new ObservableCollection<IBallType> { new Ball(0, 0, (0, 0)) };
             var timer = new Timer();
 
             // Act
@@ -91,7 +91,7 @@ namespace LogicUnitTest
         {
             // Arrange
             var logicApi = new LogicApi();
-            var balls = new ObservableCollection<Ball> {};
+            var balls = new ObservableCollection<IBallType> {};
             var timer = new Timer();
 
             // Act
@@ -106,7 +106,7 @@ namespace LogicUnitTest
         {
             // Arrange
             var logicApi = new LogicApi();
-            var balls = new ObservableCollection<Ball>
+            var balls = new ObservableCollection<IBallType>
             {
                 new Ball(50, 50, (1, 1)),
                 new Ball(20, 20, (-1, -1))
@@ -129,7 +129,7 @@ namespace LogicUnitTest
         {
             // Arrange
             var logicApi = new LogicApi();
-            var balls = new ObservableCollection<Ball>
+            var balls = new ObservableCollection<IBallType>
             {
                 new Ball(5, 6, (-1, -1)),
                 new Ball(95, 90, (1, 1))

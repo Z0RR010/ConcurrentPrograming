@@ -7,7 +7,7 @@ namespace Logic
 
     public class LogicApi : LogicAbstractApi
     {
-        public override void GenerateHandler(ICollection<BallType> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
+        public override void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
         {
             var randomGenerator = new Randomizer();
             if (balls.Count != 0 || ballsNumber == 0) return;
@@ -20,7 +20,7 @@ namespace Logic
             }
         }
 
-        public override void MovingHandler(ObservableCollection<BallType> balls, Timer timer, int radius,
+        public override void MovingHandler(ObservableCollection<IBallType> balls, Timer timer, int radius,
             int maxX, int maxY)
         {
             if (balls.Count == 0) return;
@@ -32,7 +32,7 @@ namespace Logic
             timer.Enabled = true;
         }
 
-        public override void MoveBalls(ObservableCollection<BallType> balls, int radius, int maxX, int maxY)
+        public override void MoveBalls(ObservableCollection<IBallType> balls, int radius, int maxX, int maxY)
         {
             for (var i = 0; i < balls.Count; i++)
             {
