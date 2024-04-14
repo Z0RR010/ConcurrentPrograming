@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using Logic;
 using System.Collections.ObjectModel;
-using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace LogicUnitTest
@@ -18,7 +17,7 @@ namespace LogicUnitTest
         {
             var ball = new Ball(1, 1, (0, 0));
             Assert.IsNotNull(ball);
-            Assert.AreEqual(1, ball.X);
+            Assert.That(ball.X, Is.EqualTo(1));
         }
 
         [Test]
@@ -32,7 +31,7 @@ namespace LogicUnitTest
             ball.X = newX;
 
             // Assert
-            Assert.AreEqual(newX, ball.X);
+            Assert.That(ball.X, Is.EqualTo(newX));
         }
 
         [Test]
@@ -46,7 +45,7 @@ namespace LogicUnitTest
             ball.Y = newY;
 
             // Assert
-            Assert.AreEqual(newY, ball.Y);
+            Assert.That(ball.Y, Is.EqualTo(newY));
         }
 
         [Test]
@@ -65,10 +64,10 @@ namespace LogicUnitTest
             logicApi.GenerateHandler(balls, ballsNumber, minX, maxX, minY, maxY);
 
             // Assert
-            Assert.AreEqual(ballsNumber, balls.Count);
+            Assert.That(balls.Count, Is.EqualTo(ballsNumber));
             foreach (var ball in balls)
             {
-                Assert.IsTrue(ball.X >= minX && ball.X <= maxX && ball.Y >= minY && ball.Y <= maxY);
+                Assert.That(ball.X >= minX && ball.X <= maxX && ball.Y >= minY && ball.Y <= maxY, Is.True);
             }
         }
 
@@ -84,7 +83,7 @@ namespace LogicUnitTest
             logicApi.MovingHandler(balls, timer, 10, 100, 100);
 
             // Assert
-            Assert.IsTrue(timer.Enabled);
+            Assert.That(timer.Enabled, Is.True);
         }
 
         [Test]
@@ -99,7 +98,7 @@ namespace LogicUnitTest
             logicApi.MovingHandler(balls, timer, 10, 100, 100);
 
             // Assert
-            Assert.IsFalse(timer.Enabled);
+            Assert.That(timer.Enabled, Is.False);
         }
 
         [Test]
@@ -116,13 +115,13 @@ namespace LogicUnitTest
             var maxY = 100;
 
             // Act
-            logicApi.MoveBall(balls, 5, maxX, maxY);
+            logicApi.MoveBalls(balls, 5, maxX, maxY);
 
             // Assert
-            Assert.AreEqual(51, balls[0].X);
-            Assert.AreEqual(51, balls[0].Y);
-            Assert.AreEqual(19, balls[1].X);
-            Assert.AreEqual(19, balls[1].Y);
+            Assert.That(balls[0].X, Is.EqualTo(51));
+            Assert.That(balls[0].Y, Is.EqualTo(51));
+            Assert.That(balls[1].X, Is.EqualTo(19));
+            Assert.That(balls[1].Y, Is.EqualTo(19));
         }
 
         [Test]
@@ -139,13 +138,13 @@ namespace LogicUnitTest
             var maxY = 100;
 
             // Act
-            logicApi.MoveBall(balls, 5, maxX, maxY);
+            logicApi.MoveBalls(balls, 5, maxX, maxY);
 
             // Assert
-            Assert.AreEqual(4.0, balls[0].X);
-            Assert.AreEqual(5.0, balls[0].Y);
-            Assert.AreEqual(95, balls[1].X);
-            Assert.AreEqual(91, balls[1].Y);
+            Assert.That(balls[0].X, Is.EqualTo(4.0));
+            Assert.That(balls[0].Y, Is.EqualTo(5.0));
+            Assert.That(balls[1].X, Is.EqualTo(95));
+            Assert.That(balls[1].Y, Is.EqualTo(91));
         }
 
         [Test]
@@ -175,7 +174,7 @@ namespace LogicUnitTest
 
             // Assert
             Assert.IsFalse(timer.Enabled);
-            Assert.AreEqual(0, balls.Count);
+            Assert.That(balls.Count, Is.EqualTo(0));
         }
     }
 }

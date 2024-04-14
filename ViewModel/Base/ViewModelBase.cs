@@ -11,9 +11,6 @@ namespace ViewModel.Base
         public event PropertyChangedEventHandler? PropertyChanged;
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-        
-
-        
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {

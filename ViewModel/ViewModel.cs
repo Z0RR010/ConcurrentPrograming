@@ -9,13 +9,13 @@ namespace ViewModel
     
         public class ViewModelWindow : ViewModelBase
         {
-            public ViewModelWindow() : this(ModelAbstractApi.CreateApi()) { }
+            public ViewModelWindow() : this(ModelAbstractApi.CreateApi(),LogicAbstractApi.CreateApi()) { }
 
-            private ViewModelWindow(ModelAbstractApi modelLayer)
+            private ViewModelWindow(ModelAbstractApi modelLayer, LogicAbstractApi logicLayer)
             {
                 // Fields initialization
-                LogicAbstractApi logicLayer = new LogicApi();
-                _balls = new ObservableCollection<Ball>();
+                
+                _balls = new ObservableCollection<BallType>();
                 _ballRadius = modelLayer.BallRadius;
                 _tableWidth = modelLayer.TableWidth;
                 _borderWidth = modelLayer.BorderWidth;
@@ -31,7 +31,7 @@ namespace ViewModel
             }
 
             private int _ballsNumber;
-            private readonly ObservableCollection<Ball> _balls;
+            private readonly ObservableCollection<BallType> _balls;
             private int _ballRadius;
             private readonly int _tableWidth;
             private readonly int _tableHeight;
@@ -59,7 +59,7 @@ namespace ViewModel
                 }
             }
 
-            public ObservableCollection<Ball> Balls
+            public ObservableCollection<BallType> Balls
             {
                 get => _balls;
                 set
