@@ -5,7 +5,7 @@ using Timer = System.Timers.Timer;
 namespace Logic
 { 
 
-    public class LogicApi : LogicAbstractApi
+    internal class LogicApi : LogicAbstractApi
     {
         public override void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
         {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data
+﻿namespace Data
 {
-    public abstract class DataAbstractApi
+    public abstract class DataAbstractApi<T>
     {
+        protected List<T> items = new List<T>();
+
+        public abstract void Add(T item);
+        public abstract void Remove(T item);
+        public abstract List<T> GetAll();
     }
 }
