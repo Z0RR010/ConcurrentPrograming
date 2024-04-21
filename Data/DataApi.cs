@@ -1,17 +1,15 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.ObjectModel;
+using System.Data.Entity;
 
 namespace Data
 {
     public class DataApi : DataAbstractApi
     {
         protected readonly DbContext Context;
-        public DataApi(DbContext context)
-        {
-        }
 
-        public override IRepository<T> GetRepository<T>()
+        public override ICollection<T> GetRepository<T>()
         {
-            return new BallRepository<T>(Context);
+            return new Repository<T>();
         }
     }
 }
