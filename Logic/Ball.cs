@@ -20,7 +20,7 @@ namespace Logic
             this.Direction = Direction;
         }
 
-        public IBallType Move(int radius, int maxX, int maxY)
+        public void Move(int radius, int maxX, int maxY)
         {
    
             var newBall = new Ball(this.X + this.Direction.moveX, this.Y + this.Direction.moveY, this.Direction);
@@ -30,8 +30,9 @@ namespace Logic
             if (newBall.Y < 0) newBall = new Ball(newBall.X, 0, (this.Direction.moveX, -this.Direction.moveY));
             if (newBall.Y + radius > maxY) newBall = new Ball(newBall.X, maxY - radius, (this.Direction.moveX, -this.Direction.moveY));
 
-            // Return the ball back to collection
-            return newBall;
+            this.Direction = newBall.Direction;
+            this.X = newBall.X;
+            this.Y = newBall.Y;
         }
     }
 }

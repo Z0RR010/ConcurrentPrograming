@@ -13,7 +13,7 @@ namespace Logic
         public (double moveX, double moveY) Direction { get; set; }
 
 
-        public abstract IBallType Move(int radius, int maxX, int maxY);
+        public abstract void Move(int radius, int maxX, int maxY);
 
     }
 }

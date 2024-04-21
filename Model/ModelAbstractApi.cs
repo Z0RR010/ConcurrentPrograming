@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Logic;
 
 namespace Model
 {
@@ -13,9 +16,21 @@ namespace Model
         public abstract int BallRadius { get; }
         public abstract int BorderWidth { get; }
 
-        public static ModelAbstractApi CreateApi()
+        public static ModelAbstractApi CreateApi(LogicAbstractApi? logicApi = null)
         {
-            return new ModelApi();
+            return new ModelApi(logicApi);
         }
+
+        public abstract void MoveBalls();
+
+        public abstract void GenerateBalls(int number,int minX,int maxX,int minY, int maxY, ICommand command);
+
+        public abstract void Stop();
+
+        public abstract void ClearBalls();
+
+        public abstract ObservableCollection<IVisualBall> GetVisualBalls();
+
+        public abstract void Initialize(System.Timers.Timer timer);
     }
 }

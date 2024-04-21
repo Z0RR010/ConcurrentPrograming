@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,18 +14,17 @@ namespace Logic
         public abstract void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY,
         int maxY);
 
-        public abstract void MovingHandler(ObservableCollection<IBallType> balls, System.Timers.Timer timer, int radius,
-            int maxX, int maxY);
+        public abstract ICollection<IBallType> CreateRepository();
 
-        public abstract void MoveBalls(ObservableCollection<IBallType> balls, int radius, int maxX, int maxY);
+        public abstract void MoveBalls(ICollection<IBallType> balls, int radius, int maxX, int maxY);
 
         public abstract void Stop(System.Timers.Timer timer);
 
-        public abstract void ClearBalls(System.Timers.Timer timer, IList balls);
+        public abstract void ClearBalls(System.Timers.Timer timer, ICollection<IBallType> balls);
 
-        public static LogicAbstractApi CreateApi()
+        public static LogicAbstractApi CreateApi(DataAbstractApi? data = null)
         {
-            return new LogicApi();
+            return new LogicApi(data ?? DataAbstractApi.CreateApi());
         }
     }
 }

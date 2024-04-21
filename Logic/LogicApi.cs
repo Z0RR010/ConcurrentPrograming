@@ -1,12 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
 using Timer = System.Timers.Timer;
+using Data;
+using System.Runtime.CompilerServices;
 
 namespace Logic
 { 
 
     internal class LogicApi : LogicAbstractApi
     {
+        DataAbstractApi dataApi;
+
+
+        public LogicApi(DataAbstractApi data) 
+        {
+            this.dataApi = data;
+        }
+
+        public override ICollection<IBallType> CreateRepository()
+        {
+            return this.dataApi.GetRepository<IBallType>();
+        }
+
         public override void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
         {
             var randomGenerator = new Randomizer();
@@ -20,23 +35,12 @@ namespace Logic
             }
         }
 
-        public override void MovingHandler(ObservableCollection<IBallType> balls, Timer timer, int radius,
-            int maxX, int maxY)
-        {
-            if (balls.Count == 0) return;
 
-            var context = SynchronizationContext.Current;
-            timer.Interval = 30;
-            timer.Elapsed += (_, _) => context.Send(_ => MoveBalls(balls, radius, maxX, maxY), null);
-            timer.AutoReset = true;
-            timer.Enabled = true;
-        }
-
-        public override void MoveBalls(ObservableCollection<IBallType> balls, int radius, int maxX, int maxY)
+        public override void MoveBalls(ICollection<IBallType> balls, int radius, int maxX, int maxY)
         {
-            for (var i = 0; i < balls.Count; i++)
+            foreach (var ball in balls)
             {
-                balls[i] = balls[i].Move(radius,maxX,maxY);
+                ball.Move(radius, maxX, maxY);
             }
         }
 
@@ -45,7 +49,7 @@ namespace Logic
             timer.Enabled = false;
         }
 
-        public override void ClearBalls(Timer timer, IList balls)
+        public override void ClearBalls(Timer timer, ICollection<IBallType> balls)
         {
             Stop(timer);
             balls.Clear();
