@@ -4,6 +4,11 @@ namespace Data
 {
     public abstract class DataAbstractApi
     {
-        public abstract IRepository<T> GetRepository<T>() where T : class;
+        public abstract ICollection<T> GetRepository<T>() where T : class;
+
+        public static DataAbstractApi CreateApi()
+        {
+            return new DataApi();
+        }
     }
 }

@@ -25,7 +25,7 @@
             </StackPanel>
             <Separator Margin="0,5,0,10"/>
             <Border BorderThickness="5" BorderBrush="SaddleBrown" Width="{Binding BorderWidth}">
-            <ItemsControl ItemsSource="{Binding Balls, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ItemsControl ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Width="{Binding TableWidth}" Height="{Binding TableHeight}" Background="Green" />
@@ -33,8 +33,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style>
-                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding PositionX}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding PositionY}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
