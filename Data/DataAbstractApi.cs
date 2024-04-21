@@ -1,11 +1,16 @@
-﻿namespace Data
-{
-    public abstract class DataAbstractApi<T>
-    {
-        protected List<T> items = new List<T>();
+﻿using System.Data.Entity;
 
-        public abstract void Add(T item);
-        public abstract void Remove(T item);
-        public abstract List<T> GetAll();
+namespace Data
+{
+    public abstract class DataAbstractApi
+    {
+        //protected readonly DbContext Context;
+        /*
+        protected DataAbstractApi(DbContext context)
+        {
+            Context = context;
+        }
+        */
+        public abstract IRepository<T> GetRepository<T>() where T : class;
     }
 }

@@ -1,20 +1,17 @@
-﻿namespace Data
+﻿using System.Data.Entity;
+
+namespace Data
 {
-    public class DataApi<T> : DataAbstractApi<T>
+    public class DataApi : DataAbstractApi
     {
-        public override void Add(T item)
+        protected readonly DbContext Context;
+        public DataApi(DbContext context)
         {
-            items.Add(item);
         }
 
-        public override void Remove(T item)
+        public override IRepository<T> GetRepository<T>()
         {
-            items.Remove(item);
-        }
-
-        public override List<T> GetAll()
-        {
-            return new List<T>(items);
+            return new BallRepository<T>(Context);
         }
     }
 }

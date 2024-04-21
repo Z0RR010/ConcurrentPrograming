@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{2B75D5E8-18EE-4B90-9FAE-07805B41A267}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicUnitTest", "LogicUnitTest\LogicUnitTest.csproj", "{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicUnitTest", "LogicUnitTest\LogicUnitTest.csproj", "{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUnitTest", "DataUnitTest\DataUnitTest.csproj", "{8B9BE3C1-1725-4AF8-BBCB-C7AADA861C04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B9BE3C1-1725-4AF8-BBCB-C7AADA861C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B9BE3C1-1725-4AF8-BBCB-C7AADA861C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B9BE3C1-1725-4AF8-BBCB-C7AADA861C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B9BE3C1-1725-4AF8-BBCB-C7AADA861C04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
