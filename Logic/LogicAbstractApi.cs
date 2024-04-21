@@ -20,8 +20,6 @@ namespace Logic
 
         public abstract void Stop(System.Timers.Timer timer);
 
-        public abstract void ClearBalls(System.Timers.Timer timer, ICollection<IBallType> balls);
-
         public static LogicAbstractApi CreateApi(DataAbstractApi? data = null)
         {
             return new LogicApi(data ?? DataAbstractApi.CreateApi());

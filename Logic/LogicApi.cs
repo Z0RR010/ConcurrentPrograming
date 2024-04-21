@@ -49,12 +49,6 @@ namespace Logic
             timer.Enabled = false;
         }
 
-        public override void ClearBalls(Timer timer, ICollection<IBallType> balls)
-        {
-            Stop(timer);
-            balls.Clear();
-        }
-
     }
 
 }

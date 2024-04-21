@@ -69,37 +69,7 @@ namespace LogicUnitTest
             {
                 Assert.That(ball.X >= minX && ball.X <= maxX && ball.Y >= minY && ball.Y <= maxY, Is.True);
             }
-        }
-
-        //[Test]
-        //public void MovingHandler_StartsTimerWithBalls()
-        //{
-        //    // Arrange
-        //    var logicApi = LogicAbstractApi.CreateApi();
-        //    var balls = new ObservableCollection<IBallType> { new Ball(0, 0, (0, 0)) };
-        //    var timer = new Timer();
-
-        //    // Act
-        //    logicApi.MovingHandler(balls, timer, 10, 100, 100);
-
-        //    // Assert
-        //    Assert.That(timer.Enabled, Is.True);
-        //}
-
-        //[Test]
-        //public void MovingHandler_StartsTimerWithoutBalls()
-        //{
-        //    // Arrange
-        //    var logicApi = LogicAbstractApi.CreateApi();
-        //    var balls = new ObservableCollection<IBallType> {};
-        //    var timer = new Timer();
-
-        //    // Act
-        //    logicApi.MovingHandler(balls, timer, 10, 100, 100);
-
-        //    // Assert
-        //    Assert.That(timer.Enabled, Is.False);
-        //}
+        }        
 
         [Test]
         public void MoveBall_MovesBallsWithinBounds()
@@ -160,21 +130,5 @@ namespace LogicUnitTest
             // Assert
             Assert.IsFalse(timer.Enabled);
         }
-
-        //[Test]
-        //public void ClearBalls_StopsTimerAndClearsCollection()
-        //{
-        //    // Arrange
-        //    var logicApi = LogicAbstractApi.CreateApi();
-        //    var timer = new Timer { Enabled = true };
-        //    var balls = new List<Ball> { new Ball(0, 0, (0, 0)), new Ball(0, 0, (0, 0)) };
-
-        //    // Act
-        //    logicApi.ClearBalls(timer, balls);
-
-        //    // Assert
-        //    Assert.IsFalse(timer.Enabled);
-        //    Assert.That(balls.Count, Is.EqualTo(0));
-        //}
     }
 }

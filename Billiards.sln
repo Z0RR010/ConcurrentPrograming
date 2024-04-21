@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicUnitTest", "LogicUnitTest\LogicUnitTest.csproj", "{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUnitTest", "DataUnitTest\DataUnitTest.csproj", "{A58D75F8-C51F-4391-BEBA-01F170A93ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58D75F8-C51F-4391-BEBA-01F170A93ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58D75F8-C51F-4391-BEBA-01F170A93ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58D75F8-C51F-4391-BEBA-01F170A93ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58D75F8-C51F-4391-BEBA-01F170A93ED5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
