@@ -18,7 +18,7 @@ namespace Model
 
         public static ModelAbstractApi CreateApi(LogicAbstractApi? logicApi = null)
         {
-            return new ModelApi(logicApi);
+            return new ModelApi(logicApi ?? LogicAbstractApi.CreateApi());
         }
 
         public abstract void MoveBalls();
