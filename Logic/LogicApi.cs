@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using Timer = System.Timers.Timer;
 using Data;
 using System.Runtime.CompilerServices;
+using System.Numerics;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Logic
 { 
@@ -11,10 +14,13 @@ namespace Logic
     {
         DataAbstractApi dataApi;
 
+        private ICollection<IBallType> balls;
+
 
         public LogicApi(DataAbstractApi data) 
         {
             this.dataApi = data;
+            this.balls = dataApi.GetRepository<IBallType>();
         }
 
         public override ICollection<IBallType> CreateRepository()
@@ -22,25 +28,15 @@ namespace Logic
             return this.dataApi.GetRepository<IBallType>();
         }
 
-        public override void GenerateHandler(ICollection<IBallType> balls, int ballsNumber, int minX, int maxX, int minY, int maxY)
+        public override void GenerateHandler(int ballsNumber, int minX, int maxX, int minY, int maxY)
         {
+            
             var randomGenerator = new Randomizer();
-            if (balls.Count != 0 || ballsNumber == 0) return;
+            if (this.balls.Count != 0 || ballsNumber == 0) return;
             foreach (var i in Enumerable.Range(1,ballsNumber))
             {
-                var newBall = new Ball(randomGenerator.GenerateDouble(minX, maxX),
-                    randomGenerator.GenerateDouble(minY, maxY),
-                    randomGenerator.GenerateVector());
-                balls.Add(newBall);
-            }
-        }
-
-
-        public override void MoveBalls(ICollection<IBallType> balls, int radius, int maxX, int maxY)
-        {
-            foreach (var ball in balls)
-            {
-                
+                var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, maxX), randomGenerator.GenerateFloat(0, maxY)), randomGenerator.GenerateVector(), handleBallUpdates);
+                this.balls.Add(newBall);
             }
         }
 
@@ -49,6 +45,10 @@ namespace Logic
             timer.Enabled = false;
         }
 
+        void handleBallUpdates(object? ball, BallPositionChange Position)
+        {
+            Debug.Print(Position.Position.ToString());
+        }
     }
 
 }

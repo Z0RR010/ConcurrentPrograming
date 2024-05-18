@@ -21,8 +21,6 @@ namespace Model
             return new ModelApi(logicApi ?? LogicAbstractApi.CreateApi());
         }
 
-        public abstract void MoveBalls();
-
         public abstract void GenerateBalls(int number,int minX,int maxX,int minY, int maxY, ICommand command);
 
         public abstract void Stop();

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel;
+using System.Data.Entity;
+using System.Numerics;
 
 namespace Data
 {
@@ -10,5 +12,7 @@ namespace Data
         {
             return new DataApi();
         }
+
+        public abstract IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler);
     }
 }

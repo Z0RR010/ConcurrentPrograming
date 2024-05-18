@@ -22,15 +22,7 @@ namespace Model
 
         public override void UpdateVisualBall(Object o, PropertyChangedEventArgs e)
         {
-            IBallType ball = (IBallType)o;
-            if (e.PropertyName == "X")
-            {
-                PositionX = ball.X;
-            }
-            else if (e.PropertyName == "Y")
-            {
-                PositionY = ball.Y;
-            }
+            
         }
 
         private void RaisePropertyChanged([CallerMemberName] string? propertyName = null)

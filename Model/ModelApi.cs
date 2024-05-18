@@ -19,17 +19,12 @@ namespace Model
 
         public Timer Timer;
 
-        private ICollection<IBallType> balls;
+        private ICollection<IVisualBall> balls;
 
-        public override void MoveBalls()
-        {
-            if (this.balls is not null)
-                this.Timer.Start();
-        }
 
         public override void GenerateBalls(int number, int minX, int maxX, int minY, int maxY, ICommand command)
         {
-            LogicApi.GenerateHandler(balls, number, minX, maxX, minY, maxY);
+            LogicApi.GenerateHandler(number, minX, maxX, minY, maxY);
             command.Execute(null);
         }
 
@@ -46,12 +41,12 @@ namespace Model
         public override ObservableCollection<IVisualBall> GetVisualBalls()
         {
             var repo = new ObservableCollection<IVisualBall>();
-            foreach (IBallType ball in this.balls)
-            {
-                IVisualBall b = IVisualBall.CreateVisualBall(ball.X, ball.Y);
-                repo.Add(b);
+            //foreach (var ball in this.balls)
+            //{
+            //    IVisualBall b = IVisualBall.CreateVisualBall(5, 5);
+            //    repo.Add(b);
                 
-            }
+            //}
             return repo;
         }
 
@@ -60,22 +55,15 @@ namespace Model
             this.Timer= timer;
             this.Timer.Interval = 30;
             var context = SynchronizationContext.Current;
-            this.Timer.Elapsed += (_, _) => context.Send(_ => this.LogicApi.MoveBalls(balls, BallRadius, TableWidth , TableHeight), null);
             this.Timer.AutoReset = true;
         }
 
-        public ModelApi(LogicAbstractApi? logicApi)
+        public ModelApi(LogicAbstractApi logicApi)
         {
-            if (logicApi is null)
-            {
-                this.LogicApi = LogicAbstractApi.CreateApi();
-            }
-            else
-            {
-                this.LogicApi = logicApi;
-            }
+            this.LogicApi = logicApi;
             
-            this.balls = this.LogicApi.CreateRepository();
+            
+            //this.balls = this.LogicApi.CreateRepository();
             
         }
 

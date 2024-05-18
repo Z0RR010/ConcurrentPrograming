@@ -33,7 +33,6 @@ namespace ViewModel
             // Commands initialization
             modelLayer.Initialize(timer);
                 GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius, new RelayCommand(() => this.UpdateBalls())));
-                StartMoving = new RelayCommand(() => modelLayer.MoveBalls());
                 StopMoving = new RelayCommand(() => modelLayer.Stop());
                 ClearBoard = new RelayCommand(() => modelLayer.ClearBalls());
             }
