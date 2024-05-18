@@ -40,7 +40,7 @@ namespace Logic
         {
             foreach (var ball in balls)
             {
-                ball.Move(radius, maxX, maxY);
+                
             }
         }
 
