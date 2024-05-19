@@ -39,8 +39,7 @@ namespace ViewModel
             //});
             // Commands initialization
             GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, UpdateBalls));
-                StopMoving = new RelayCommand(() => modelLayer.Stop());
-                ClearBoard = new RelayCommand(() => modelLayer.ClearBalls());
+            StopMoving = new RelayCommand(() => modelLayer.Stop());
             }
 
         public void UpdateBalls(object? o, EventArgs e)

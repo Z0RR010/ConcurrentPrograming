@@ -39,7 +39,10 @@ namespace Logic
         {
             this.updatehandler = eventHandler;
             var randomGenerator = new Randomizer();
-            if (this.balls.Count != 0 || ballsNumber == 0) return;
+            if (this.balls.Count != 0 || ballsNumber == 0)
+            {
+                return;
+            }
             foreach (int i in Enumerable.Range(0,ballsNumber))
             {
                 var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), HandleBallUpdates, i, table);
@@ -50,16 +53,24 @@ namespace Logic
                 while (true)
                 {
                     CheckBallCollisions();
-                    Thread.Sleep(3);
+                    Thread.Sleep(5);
                 }
             });
+            foreach (IBallType ball in balls)
+            {
+                ball.Start();
+            }    
             CollisionChecking.IsBackground = true;
             CollisionChecking.Start();
         }
 
-        public override void Stop(Timer timer)
+        public override void Stop()
         {
-            timer.Enabled = false;
+            foreach (IBallType ball in balls)
+            {
+                ball.Stop();
+            }
+            balls.Clear();
         }
 
         void HandleBallUpdates(object? ball, BallPositionChange Position)
@@ -79,7 +90,7 @@ namespace Logic
                 {
                     Vector2 pos2 = nd.Position;
                     float dist = Vector2.Distance(pos1, pos2);
-                    if (st != nd && dist <= (st.Radius /2 + nd.Radius /2 ))
+                    if (st != nd && dist <= (st.Radius /2 + nd.Radius /2 ) && dist > Vector2.Distance(pos1 + st.Speed, pos2 + nd.Speed))
                     {
                         lock (st) lock (nd)
                             {

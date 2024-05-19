@@ -40,13 +40,10 @@ namespace Model
 
         public override void Stop()
         {
-            
-        }
-
-        public override void ClearBalls()
-        {
+            LogicApi.Stop();
             this.balls.Clear();
         }
+
 
         public override ObservableCollection<IVisualBall> GetVisualBalls()
         {

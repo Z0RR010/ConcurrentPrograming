@@ -25,8 +25,6 @@ namespace Model
 
         public abstract void Stop();
 
-        public abstract void ClearBalls();
-
         public abstract ObservableCollection<IVisualBall> GetVisualBalls();
 
         public abstract void Initialize(System.Timers.Timer timer);

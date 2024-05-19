@@ -18,6 +18,7 @@ namespace Data
         private Table table;
         public int Mass { get; private set; }
         public int Radius { get; private set; }
+        private bool run = true;
 
         public event EventHandler<BallPositionChange> PropertyChanged;
 
@@ -35,15 +36,24 @@ namespace Data
             this.Thread = new Thread(
                 () =>
                 {
-                    while (true)
+                    while (run)
                     {
                         Move();
-                        Thread.Sleep(15);
+                        Thread.Sleep(25);
                     }
                 });
-            this.Thread.Start();
             this.Thread.IsBackground = true;
             
+        }
+
+        public void Start()
+        {
+            this.Thread.Start();
+        }
+
+        public void Stop() 
+        {
+            run = false;
         }
 
         public void Move()
@@ -57,9 +67,9 @@ namespace Data
                     newPosition = new Vector2(0, newPosition.Y);
                     this.Speed = new Vector2(-this.Speed.X, this.Speed.Y);
                 }
-                else if (newPosition.X + table.BallRadius > table.TableWidth)
+                else if (newPosition.X + Radius > table.TableWidth)
                 {
-                    newPosition = new Vector2(table.TableWidth - table.BallRadius, newPosition.Y);
+                    newPosition = new Vector2(table.TableWidth - Radius, newPosition.Y);
                     this.Speed = new Vector2(-this.Speed.X, this.Speed.Y);
                 }
                 if (newPosition.Y < 0)
@@ -67,9 +77,9 @@ namespace Data
                     newPosition = new Vector2(newPosition.X, 0);
                     this.Speed = new Vector2(this.Speed.X, -this.Speed.Y);
                 }
-                else if (newPosition.Y + table.BallRadius > table.TableHeight)
+                else if (newPosition.Y + Radius > table.TableHeight)
                 {
-                    newPosition = new Vector2(newPosition.X, table.TableHeight - table.BallRadius);
+                    newPosition = new Vector2(newPosition.X, table.TableHeight - Radius);
                     this.Speed = new Vector2(this.Speed.X, -this.Speed.Y);
                 }
                 this.Position = newPosition;

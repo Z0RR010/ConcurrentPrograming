@@ -16,7 +16,7 @@ namespace Logic
 
         public abstract ICollection<IBallType> CreateRepository();
 
-        public abstract void Stop(System.Timers.Timer timer);
+        public abstract void Stop();
 
         public abstract List<Vector2> GetBallPositions();
 
