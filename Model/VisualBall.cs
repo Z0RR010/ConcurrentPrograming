@@ -1,28 +1,30 @@
 ﻿using Logic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Numerics;
 
 namespace Model
 {
     internal class VisualBall : IVisualBall, INotifyPropertyChanged
     {
-        public override double PositionX { get => _PositionX; set { _PositionX = value; RaisePropertyChanged(); } }
-        public override double PositionY { get => _PositionY; set { _PositionY = value; RaisePropertyChanged(); } }
 
-        private double _PositionX { get; set; }
-        private double _PositionY { get; set; }
+        public override float PositionX { get; set; }
+        public override float PositionY { get; set; }
 
-        public VisualBall(double x, double y)
+        public VisualBall(Vector2 pos)
         {
-            _PositionX = x;
-            _PositionY = y;
+            PositionX= pos.X;
+            PositionY= pos.Y;
         }
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public override void UpdateVisualBall(Object o, PropertyChangedEventArgs e)
+        public override void UpdateVisualBall(Vector2 pos)
         {
-            
+            this.PositionX = pos.X;
+            this.PositionY = pos.Y;
+            RaisePropertyChanged(nameof(PositionX));
+            RaisePropertyChanged(nameof(PositionY));
         }
 
         private void RaisePropertyChanged([CallerMemberName] string? propertyName = null)

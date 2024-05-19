@@ -27,21 +27,27 @@ namespace ViewModel
             _tableWidth = modelLayer.TableWidth;
             _borderWidth = modelLayer.BorderWidth;
             _tableHeight = modelLayer.TableHeight;
-            var timer = new System.Timers.Timer();
-            var context = SynchronizationContext.Current;
-            timer.Elapsed += (_, _) => context.Send(_ => this.UpdateBalls(), null);
+            //var timer = new System.Timers.Timer();
+            //var context = SynchronizationContext.Current;
+            //th = new Thread(() =>
+            //{
+            //    while (true)
+            //    {
+            //        UpdateBalls(this,EventArgs.Empty);
+            //        Thread.Sleep(10);
+            //    }
+            //});
             // Commands initialization
-            modelLayer.Initialize(timer);
-                GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius, new RelayCommand(() => this.UpdateBalls())));
+            GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius, UpdateBalls));
                 StopMoving = new RelayCommand(() => modelLayer.Stop());
                 ClearBoard = new RelayCommand(() => modelLayer.ClearBalls());
             }
 
-        private void UpdateBalls()
+        public void UpdateBalls(object? o, EventArgs e)
         {
             RaisePropertyChanged(nameof(Balls));
         }
-
+        private Thread th;
         private int _ballsNumber;
         public ObservableCollection<IVisualBall> Balls => modelLayer.GetVisualBalls();
         private int _ballRadius;
@@ -49,6 +55,8 @@ namespace ViewModel
         private readonly int _tableHeight;
         private readonly int _borderWidth;
         private ModelAbstractApi modelLayer;
+
+
 
             public int BallsNumber
             {

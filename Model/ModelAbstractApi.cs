@@ -21,7 +21,7 @@ namespace Model
             return new ModelApi(logicApi ?? LogicAbstractApi.CreateApi());
         }
 
-        public abstract void GenerateBalls(int number,int minX,int maxX,int minY, int maxY, ICommand command);
+        public abstract void GenerateBalls(int number,int minX,int maxX,int minY, int maxY, EventHandler update);
 
         public abstract void Stop();
 
@@ -30,5 +30,7 @@ namespace Model
         public abstract ObservableCollection<IVisualBall> GetVisualBalls();
 
         public abstract void Initialize(System.Timers.Timer timer);
+
+        public abstract void Update(object? sender, PositionUpdateArgs eventArgs);
     }
 }

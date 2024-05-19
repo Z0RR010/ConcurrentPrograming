@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Numerics;
 using System.Windows.Input;
 using Timer = System.Timers.Timer;
 
@@ -19,18 +20,27 @@ namespace Model
 
         public Timer Timer;
 
-        private ICollection<IVisualBall> balls;
+        private ObservableCollection<IVisualBall> balls;
+
+        private event EventHandler ballsChanged;
 
 
-        public override void GenerateBalls(int number, int minX, int maxX, int minY, int maxY, ICommand command)
+        public override void GenerateBalls(int number, int minX, int maxX, int minY, int maxY, EventHandler update)
         {
-            LogicApi.GenerateHandler(number, minX, maxX, minY, maxY);
-            command.Execute(null);
+            ballsChanged = update;
+            LogicApi.GenerateHandler(number, minX, maxX, minY, maxY, Update);
+            List<Vector2> positions = LogicApi.GetBallPositions();
+            balls.Clear();
+            foreach (Vector2 position in positions)
+            {
+                balls.Add(new VisualBall(position));
+            }
+            ballsChanged.Invoke(this, EventArgs.Empty);
         }
 
         public override void Stop()
         {
-            this.Timer.Stop();
+            
         }
 
         public override void ClearBalls()
@@ -40,14 +50,7 @@ namespace Model
 
         public override ObservableCollection<IVisualBall> GetVisualBalls()
         {
-            var repo = new ObservableCollection<IVisualBall>();
-            //foreach (var ball in this.balls)
-            //{
-            //    IVisualBall b = IVisualBall.CreateVisualBall(5, 5);
-            //    repo.Add(b);
-                
-            //}
-            return repo;
+            return balls;
         }
 
         public override void Initialize(Timer timer)
@@ -61,12 +64,20 @@ namespace Model
         public ModelApi(LogicAbstractApi logicApi)
         {
             this.LogicApi = logicApi;
-            
-            
-            //this.balls = this.LogicApi.CreateRepository();
+            this.balls = new ObservableCollection<IVisualBall>();
             
         }
 
-        
+        public override void Update(object? sender,PositionUpdateArgs args)
+        {
+            int id = args.ID;
+            if (id < balls.Count)
+            {
+                balls[id].UpdateVisualBall(args.Position);
+                ballsChanged.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+
     }
 }

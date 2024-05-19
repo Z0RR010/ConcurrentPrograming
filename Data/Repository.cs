@@ -31,6 +31,11 @@ namespace Data
             return _items.Contains(item);
         }
 
+        public T Get(int index)
+        {
+            return _items[index];
+        }
+
         public void CopyTo(T[] array, int arrayIndex)
         {
             _items.CopyTo(array, arrayIndex);

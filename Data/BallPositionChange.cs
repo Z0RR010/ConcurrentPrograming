@@ -10,10 +10,12 @@ namespace Data
     public class BallPositionChange : EventArgs
     {
         public Vector2 Position { get; private set; }
+        public int ID { get; private set; }
 
-        public BallPositionChange(Vector2 position)
+        public BallPositionChange(Vector2 position, int ID)
         {
             this.Position = position;
+            this.ID = ID;
         }
     }
 }

@@ -13,24 +13,25 @@ namespace Data
     {
         public Vector2 Movement { get; private set; }
         private Thread Thread;
+        private int ID;
 
         public event EventHandler<BallPositionChange> PropertyChanged;
 
         public Vector2 Position { get; private set; }
 
-        public Ball(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler)
+        public Ball(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler, int ID)
         {
             this.PropertyChanged += eventHandler;
             this.Position = Position;
             this.Movement = movement;
-            
+            this.ID = ID;
             this.Thread = new Thread(
                 () =>
                 {
                     while (true)
                     {
                         Move(10, 600, 300);
-                        Thread.Sleep(25);
+                        Thread.Sleep(5);
                     }
                 });
             this.Thread.Start();
@@ -65,7 +66,7 @@ namespace Data
             }
             this.Position = newPosition;
 
-            this.PropertyChanged.Invoke(this, new BallPositionChange(this.Position));
+            this.PropertyChanged.Invoke(this, new BallPositionChange(Position, ID));
         }
     }
 }
