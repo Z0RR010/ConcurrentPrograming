@@ -25,10 +25,10 @@ namespace Model
         private event EventHandler ballsChanged;
 
 
-        public override void GenerateBalls(int number, int minX, int maxX, int minY, int maxY, EventHandler update)
+        public override void GenerateBalls(int number, EventHandler update)
         {
             ballsChanged = update;
-            LogicApi.GenerateHandler(number, minX, maxX, minY, maxY, Update);
+            LogicApi.GenerateHandler(number, Update);
             List<Vector2> positions = LogicApi.GetBallPositions();
             balls.Clear();
             foreach (Vector2 position in positions)

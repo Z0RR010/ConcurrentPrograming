@@ -21,7 +21,7 @@ namespace Model
             return new ModelApi(logicApi ?? LogicAbstractApi.CreateApi());
         }
 
-        public abstract void GenerateBalls(int number,int minX,int maxX,int minY, int maxY, EventHandler update);
+        public abstract void GenerateBalls(int number, EventHandler update);
 
         public abstract void Stop();
 

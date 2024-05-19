@@ -38,7 +38,7 @@ namespace ViewModel
             //    }
             //});
             // Commands initialization
-            GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, _ballRadius, _tableWidth - _ballRadius, _ballRadius, _tableHeight - _ballRadius, UpdateBalls));
+            GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, UpdateBalls));
                 StopMoving = new RelayCommand(() => modelLayer.Stop());
                 ClearBoard = new RelayCommand(() => modelLayer.ClearBalls());
             }

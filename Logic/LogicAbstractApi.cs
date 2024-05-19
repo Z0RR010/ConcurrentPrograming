@@ -12,8 +12,7 @@ namespace Logic
 {
     public abstract class LogicAbstractApi
     {
-        public abstract void GenerateHandler(int ballsNumber, int minX, int maxX, int minY,
-        int maxY, EventHandler<PositionUpdateArgs> eventHandler);
+        public abstract void GenerateHandler(int ballsNumber, EventHandler<PositionUpdateArgs> eventHandler);
 
         public abstract ICollection<IBallType> CreateRepository();
 

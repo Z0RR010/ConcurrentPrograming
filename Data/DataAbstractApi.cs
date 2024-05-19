@@ -13,6 +13,6 @@ namespace Data
             return new DataApi();
         }
 
-        public abstract IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id);
+        public abstract IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id, Table table);
     }
 }

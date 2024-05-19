@@ -14,9 +14,9 @@ namespace Data
             return new Repository<T>();
         }
 
-        public override IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id)
+        public override IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id, Table table)
         {
-            return new Ball(Pos, Move, eventHandler, id);
+            return new Ball(Pos, Move, eventHandler, id, table);
         }
     }
 }
