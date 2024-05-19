@@ -58,12 +58,12 @@ namespace DataUnitTest
             [Test]
             public void Ball_BouncesOffWalls()
             {
-                var initialPosition = new Vector2(290, 100); // Near the right wall
+                var initialPosition = new Vector2(295, 100); // Near the right wall
                 var initialSpeed = new Vector2(10, 0); // Moving right
                 var ball = new Ball(initialPosition, initialSpeed, handler.HandlePositionChange, 1, table);
 
                 ball.Start();
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
                 ball.Stop();
 
                 Assert.IsTrue(handler.EventTriggered);

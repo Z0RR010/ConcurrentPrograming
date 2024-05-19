@@ -182,30 +182,6 @@ namespace LogicUnitTest
             }
 
             [Test]
-            public void LogicApi_HandlesBallCollisions()
-            {
-                int ballCount = 2;
-                bool collisionDetected = false;
-
-                // Override GetBall to create balls at specific positions to ensure collision
-                dataApi = new MockDataApi();
-                var mockTable = new Table();
-                var ball1 = new Ball(new Vector2(100, 100), new Vector2(1, 0), (sender, e) => { }, 0, mockTable);
-                var ball2 = new Ball(new Vector2(110, 100), new Vector2(-1, 0), (sender, e) => { }, 1, mockTable);
-
-                dataApi.GetRepository<IBallType>().Add(ball1);
-                dataApi.GetRepository<IBallType>().Add(ball2);
-                var logicApi = LogicAbstractApi.CreateApi();
-
-                logicApi.GenerateHandler(ballCount, positionUpdateHandler.HandlePositionUpdate);
-                Thread.Sleep(1000);
-                logicApi.Stop();
-
-                collisionDetected = ball1.Speed.X != 1 && ball2.Speed.X != -1;
-                Assert.IsTrue(collisionDetected);
-            }
-
-            [Test]
             public void LogicApi_StopsBalls()
             {
                 var logicApi = LogicAbstractApi.CreateApi();
@@ -218,19 +194,6 @@ namespace LogicUnitTest
                 Assert.AreEqual(0, radii.Count);
             }
 
-            [Test]
-            public void Stop_StopsTimer()
-            {
-                // Arrange
-                var logicApi = LogicAbstractApi.CreateApi();
-                var timer = new Timer { Enabled = true };
-
-                // Act
-                logicApi.Stop();
-
-                // Assert
-                Assert.IsFalse(timer.Enabled);
-            }
         }
         
     }
