@@ -54,7 +54,7 @@ namespace LogicUnitTest
             [Test]
             public void LogicApi_CreatesBalls()
             {
-                var logicApi = LogicAbstractApi.CreateApi();
+                var logicApi = LogicAbstractApi.CreateApi(dataApi);
                 int ballCount = 5;
                 logicApi.GenerateHandler(ballCount, positionUpdateHandler.HandlePositionUpdate);
 
@@ -66,7 +66,7 @@ namespace LogicUnitTest
             [Test]
             public void LogicApi_UpdatesBallPositions()
             {
-                var logicApi = LogicAbstractApi.CreateApi();
+                var logicApi = LogicAbstractApi.CreateApi(dataApi);
                 int ballCount = 1;
                 logicApi.GenerateHandler(ballCount, positionUpdateHandler.HandlePositionUpdate);
                 Thread.Sleep(100);
@@ -78,7 +78,7 @@ namespace LogicUnitTest
             [Test]
             public void LogicApi_StopsBalls()
             {
-                var logicApi = LogicAbstractApi.CreateApi();
+                var logicApi = LogicAbstractApi.CreateApi(dataApi);
                 int ballCount = 3;
                 logicApi.GenerateHandler(ballCount, positionUpdateHandler.HandlePositionUpdate);
                 logicApi.Stop();

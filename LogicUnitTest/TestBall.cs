@@ -58,7 +58,7 @@ namespace LogicUnitTest
 
         public void Move()
         {
-            
+            this.PropertyChanged?.Invoke(this, new BallPositionChange(Position, ID));
         }
 
         public void UpdateSpeed(Vector2 speed)
