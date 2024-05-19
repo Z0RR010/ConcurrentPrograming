@@ -10,19 +10,20 @@ namespace Model
 
         public override float PositionX { get; set; }
         public override float PositionY { get; set; }
+        private static float scale = 1f;
 
         public VisualBall(Vector2 pos)
         {
-            PositionX= pos.X;
-            PositionY= pos.Y;
+            PositionX= pos.X * scale;
+            PositionY= pos.Y * scale;
         }
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
         public override void UpdateVisualBall(Vector2 pos)
         {
-            this.PositionX = pos.X;
-            this.PositionY = pos.Y;
+            this.PositionX = pos.X * scale;
+            this.PositionY = pos.Y * scale;
             RaisePropertyChanged(nameof(PositionX));
             RaisePropertyChanged(nameof(PositionY));
         }
