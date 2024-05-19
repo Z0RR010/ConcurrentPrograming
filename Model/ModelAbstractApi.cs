@@ -11,10 +11,9 @@ namespace Model
 {
     public abstract class ModelAbstractApi
     {
-        public abstract int TableHeight { get; }
-        public abstract int TableWidth { get; }
-        public abstract int BallRadius { get; }
-        public abstract int BorderWidth { get; }
+        public abstract float TableHeight { get; }
+        public abstract float TableWidth { get; }
+        public abstract float BorderWidth { get; }
 
         public static ModelAbstractApi CreateApi(LogicAbstractApi? logicApi = null)
         {
@@ -26,8 +25,6 @@ namespace Model
         public abstract void Stop();
 
         public abstract ObservableCollection<IVisualBall> GetVisualBalls();
-
-        public abstract void Initialize(System.Timers.Timer timer);
 
         public abstract void Update(object? sender, PositionUpdateArgs eventArgs);
     }

@@ -23,21 +23,9 @@ namespace ViewModel
             // Fields initialization
             this.modelLayer = modelLayer;
                 
-            _ballRadius = modelLayer.BallRadius;
             _tableWidth = modelLayer.TableWidth;
             _borderWidth = modelLayer.BorderWidth;
             _tableHeight = modelLayer.TableHeight;
-            //var timer = new System.Timers.Timer();
-            //var context = SynchronizationContext.Current;
-            //th = new Thread(() =>
-            //{
-            //    while (true)
-            //    {
-            //        UpdateBalls(this,EventArgs.Empty);
-            //        Thread.Sleep(10);
-            //    }
-            //});
-            // Commands initialization
             GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, UpdateBalls));
             StopMoving = new RelayCommand(() => modelLayer.Stop());
             }
@@ -46,13 +34,11 @@ namespace ViewModel
         {
             RaisePropertyChanged(nameof(Balls));
         }
-        private Thread th;
         private int _ballsNumber;
         public ObservableCollection<IVisualBall> Balls => modelLayer.GetVisualBalls();
-        private int _ballRadius;
-        private readonly int _tableWidth;
-        private readonly int _tableHeight;
-        private readonly int _borderWidth;
+        private readonly float _tableWidth;
+        private readonly float _tableHeight;
+        private readonly float _borderWidth;
         private ModelAbstractApi modelLayer;
 
 
@@ -68,18 +54,7 @@ namespace ViewModel
                 }
             }
 
-            public int BallRadius
-            {
-                get => _ballRadius;
-                set
-                {
-                    if (value == _ballRadius) return;
-                    _ballRadius = value;
-                    RaisePropertyChanged();
-                }
-            }
-
-            public int TableWidth
+            public float TableWidth
             {
                 get => _tableWidth;
                 set
@@ -89,7 +64,7 @@ namespace ViewModel
                 }
             }
 
-            public int BorderWidth
+            public float BorderWidth
             {
                 get => _borderWidth;
                 set
@@ -99,7 +74,7 @@ namespace ViewModel
                 }
             }
 
-        public int TableHeight
+        public float TableHeight
             {
                 get => _tableHeight;
                 set

@@ -18,7 +18,7 @@ namespace Logic
 
         public abstract void Stop();
 
-        public abstract List<Vector2> GetBallPositions();
+        public abstract (List<Vector2>, List<int>) GetBallInfo();
 
         public static LogicAbstractApi CreateApi(DataAbstractApi? data = null)
         {
