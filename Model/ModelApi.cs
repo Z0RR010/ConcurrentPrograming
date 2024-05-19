@@ -10,10 +10,10 @@ namespace Model
 {
     internal class ModelApi : ModelAbstractApi
     {
-        public override int TableHeight => 300;
-        public override int TableWidth => 600;
-        public override int BorderWidth => TableWidth + 10;
-        public override int BallRadius => 10;
+        public override float TableHeight => 300 * Scale;
+        public override float TableWidth => 600 * Scale;
+        public override float BorderWidth => TableWidth + 10;
+        public float Scale = 2f;
 
 
         public LogicAbstractApi LogicApi;
@@ -29,11 +29,13 @@ namespace Model
         {
             ballsChanged = update;
             LogicApi.GenerateHandler(number, Update);
-            List<Vector2> positions = LogicApi.GetBallPositions();
+            var lists = LogicApi.GetBallInfo();
+            List<Vector2> positions = lists.Item1;
+            List<int> radius = lists.Item2;
             balls.Clear();
-            foreach (Vector2 position in positions)
+            foreach (int i in Enumerable.Range(0,positions.Count()))
             {
-                balls.Add(new VisualBall(position));
+                balls.Add(new VisualBall(positions[i], radius[i],Scale));
             }
             ballsChanged.Invoke(this, EventArgs.Empty);
         }
@@ -41,21 +43,13 @@ namespace Model
         public override void Stop()
         {
             LogicApi.Stop();
-            this.balls.Clear();
+            balls.Clear();
         }
 
 
         public override ObservableCollection<IVisualBall> GetVisualBalls()
         {
             return balls;
-        }
-
-        public override void Initialize(Timer timer)
-        {
-            this.Timer= timer;
-            this.Timer.Interval = 30;
-            var context = SynchronizationContext.Current;
-            this.Timer.AutoReset = true;
         }
 
         public ModelApi(LogicAbstractApi logicApi)

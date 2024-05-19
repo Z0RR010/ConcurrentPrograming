@@ -120,14 +120,16 @@ namespace Logic
             }
         }
 
-        public override List<Vector2> GetBallPositions()
+        public override (List<Vector2>, List<int>) GetBallInfo()
         {
             List<Vector2> ret = new List<Vector2>();
+            List<int> radius = new List<int>();
             foreach (var ball in this.balls) 
             {
                 ret.Add(ball.Position);
+                radius.Add(ball.Radius);
             }
-            return ret;
+            return (ret, radius);
         }
     }
 
