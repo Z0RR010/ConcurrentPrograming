@@ -14,5 +14,7 @@ namespace Data
         }
 
         public abstract IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id, Table table);
+
+        public abstract Table GetTable();
     }
 }

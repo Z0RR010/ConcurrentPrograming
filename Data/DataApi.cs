@@ -7,7 +7,6 @@ namespace Data
 {
     public class DataApi : DataAbstractApi
     {
-        protected readonly DbContext Context;
 
         public override ICollection<T> GetRepository<T>()
         {
@@ -17,6 +16,11 @@ namespace Data
         public override IBallType GetBall(Vector2 Pos, Vector2 Move, EventHandler<BallPositionChange> eventHandler, int id, Table table)
         {
             return new Ball(Pos, Move, eventHandler, id, table);
+        }
+
+        public override Table GetTable()
+        {
+            return new Table();
         }
     }
 }
