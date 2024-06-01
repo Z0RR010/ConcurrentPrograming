@@ -22,11 +22,10 @@ namespace DataUnitTest
                 public Vector2 Position { get; private set; }
                 public int ID { get; private set; }
 
-                public void HandlePositionChange(object sender, BallPositionChange e)
+                public void HandlePositionChange(object sender, Vector2 e)
                 {
                     EventTriggered = true;
-                    Position = e.Position;
-                    ID = e.ID;
+                    Position = e;
                 }
             }
 
@@ -45,7 +44,7 @@ namespace DataUnitTest
             {
                 var initialPosition = new Vector2(100, 100);
                 var initialSpeed = new Vector2(5, 5);
-                var ball = new Ball(initialPosition, initialSpeed, handler.HandlePositionChange, 1, table);
+                var ball = new Ball(initialPosition, initialSpeed, table);
 
                 ball.Start();
                 Thread.Sleep(100);
@@ -60,7 +59,7 @@ namespace DataUnitTest
             {
                 var initialPosition = new Vector2(295, 100); // Near the right wall
                 var initialSpeed = new Vector2(10, 0); // Moving right
-                var ball = new Ball(initialPosition, initialSpeed, handler.HandlePositionChange, 1, table);
+                var ball = new Ball(initialPosition, initialSpeed,  table);
 
                 ball.Start();
                 Thread.Sleep(1000);
@@ -76,7 +75,7 @@ namespace DataUnitTest
             {
                 var initialPosition = new Vector2(100, 100);
                 var initialSpeed = new Vector2(5, 5);
-                var ball = new Ball(initialPosition, initialSpeed, handler.HandlePositionChange, 1, table);
+                var ball = new Ball(initialPosition, initialSpeed, table);
 
                 var newSpeed = new Vector2(-5, -5);
                 ball.UpdateSpeed(newSpeed);

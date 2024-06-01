@@ -19,13 +19,12 @@ namespace Data
         public int Radius { get; private set; } //useless
         private bool run = true;
 
-        public event EventHandler<BallPositionChange> PropertyChanged; //private
+        private EventHandler<Vector2> EventHandler; //private
 
         public Vector2 Position { get; private set; }
 
-        public Ball(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler, Table table)
+        public Ball(Vector2 Position, Vector2 movement, Table table)
         {
-            this.PropertyChanged += eventHandler;
             this.Position = Position;
             this.Speed = movement;
             this.table = table;
@@ -54,7 +53,12 @@ namespace Data
             run = false;
         }
 
-        public void Move() //private
+        public void Connect(EventHandler<Vector2> eventHandler)
+        {
+            this.EventHandler = eventHandler;
+        }
+
+        private void Move() //private
         {
             lock (this)
             {
@@ -82,7 +86,7 @@ namespace Data
                 }
                 this.Position = newPosition;
 
-                this.PropertyChanged.Invoke(this, new BallPositionChange(Position));
+                this.EventHandler.Invoke(this, Position);
             }
         }
         public void UpdateSpeed(Vector2 speed)

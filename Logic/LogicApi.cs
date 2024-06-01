@@ -16,8 +16,6 @@ namespace Logic
 
         private ICollection<IBallType> balls;
 
-        private EventHandler<PositionUpdateArgs> updatehandler;
-
         private Table table;
 
         private Thread CollisionChecking;
@@ -35,20 +33,20 @@ namespace Logic
             return this.dataApi.GetRepository<IBallType>();
         }
 
-        public override void GenerateHandler(List<EventHandler<Vector2>> eventHandlers)
+        public override void GenerateHandler(int number)
         {
             //this.updatehandler = eventHandler;
             var randomGenerator = new Randomizer();
-            //if (this.balls.Count != 0 || ballsNumber == 0)
-            //{
-            //    return;
-            //}
-      
+            if (this.balls.Count != 0 || number == 0)
+            {
+                return;
+            }
+
             lock (balls)
             {
-                foreach (var i in eventHandlers)
+                foreach (var i in Enumerable.Range(0,number))
                 {
-                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), HandleBallUpdates, table);
+                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), table);
                     this.balls.Add(newBall);
                 }
                 this.CollisionChecking = new Thread(() =>
@@ -58,12 +56,17 @@ namespace Logic
                         CheckBallCollisions();
                     }
                 });
-                foreach (IBallType ball in balls)
-                {
-                    ball.Start();
-                }
                 CollisionChecking.IsBackground = true;
                 CollisionChecking.Start();
+            }
+        }
+
+        public override void ConnectBalls(List<EventHandler<Vector2>> eventHandlers)
+        {
+            foreach (int i in Enumerable.Range(0,balls.Count))
+            {
+                balls.ElementAt(i).Connect(eventHandlers[i]);
+                balls.ElementAt(i).Start();
             }
         }
 
@@ -79,12 +82,11 @@ namespace Logic
             }
         }
 
-        void HandleBallUpdates(object? ball, BallPositionChange Position)
-        {
-            int id = Position.ID;
-            Vector2 pos = Position.Position;
-            updatehandler.Invoke(this, new PositionUpdateArgs(pos, id));
-        }
+        //void HandleBallUpdates(object? ball, BallPositionChange Position)
+        //{
+        //    Vector2 pos = Position.Position;
+        //    //updatehandler.Invoke(this, new PositionUpdateArgs(pos));
+        //}
 
 
         private void CheckBallCollisions()

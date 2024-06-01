@@ -26,14 +26,14 @@ namespace ViewModel
             _tableWidth = modelLayer.TableWidth;
             _borderWidth = modelLayer.BorderWidth;
             _tableHeight = modelLayer.TableHeight;
-            GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber, UpdateBalls));
+            GenerateCommand = new RelayCommand(() => modelLayer.GenerateBalls(BallsNumber));
             StopMoving = new RelayCommand(() => modelLayer.Stop());
             }
 
-        public void UpdateBalls(object? o, EventArgs e)
-        {
-            RaisePropertyChanged(nameof(Balls));
-        }
+        //public void UpdateBalls(object? o, EventArgs e)
+        //{
+        //    RaisePropertyChanged(nameof(Balls));
+        //}
         private int _ballsNumber;
         public ObservableCollection<IVisualBall> Balls => modelLayer.GetVisualBalls();
         private readonly float _tableWidth;

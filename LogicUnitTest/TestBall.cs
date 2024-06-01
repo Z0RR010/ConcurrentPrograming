@@ -20,13 +20,11 @@ namespace LogicUnitTest
         public int Radius { get; private set; }
         private bool run = true;
 
-        public event EventHandler<BallPositionChange> PropertyChanged;
 
         public Vector2 Position { get; private set; }
 
-        public TestBall(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler, int ID, Table table)
+        public TestBall(Vector2 Position, Vector2 movement, int ID, Table table)
         {
-            this.PropertyChanged += eventHandler;
             this.Position = Position;
             this.Speed = movement;
             this.ID = ID;
@@ -58,12 +56,17 @@ namespace LogicUnitTest
 
         public void Move()
         {
-            this.PropertyChanged?.Invoke(this, new BallPositionChange(Position, ID));
+            
         }
 
         public void UpdateSpeed(Vector2 speed)
         {
             Speed = speed;
+        }
+
+        public void Connect(EventHandler<Vector2> eventHandler)
+        {
+            throw new NotImplementedException();
         }
     }
 }

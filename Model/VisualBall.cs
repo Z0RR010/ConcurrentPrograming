@@ -23,7 +23,7 @@ namespace Model
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public override void UpdateVisualBall(Vector2 pos)
+        public override void UpdateVisualBall(object o,Vector2 pos)
         {
             this.PositionX = pos.X * Scale;
             this.PositionY = pos.Y * Scale;

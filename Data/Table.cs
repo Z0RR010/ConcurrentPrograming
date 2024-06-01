@@ -10,15 +10,23 @@ namespace Data
     {
         public int TableHeight { get; private set; }
         public int TableWidth { get; private set; }
-        public int BallRadius { get; private set; }
-        public int BallMass { get; private set; }
+        public int BallRadius { get
+            {
+                return random.Next(5, 15);
+            }}
+        public int BallMass { get
+            {
+                return random.Next(5, 15);
+            }
+        }
 
-        public Table(int height = 300, int width = 600, int radius = 10, int ballMass = 10)
+        private Random random = new Random();
+
+        public Table(int height = 300, int width = 600)
         {
+            
             TableHeight = height;
             TableWidth = width;
-            BallRadius = radius;
-            BallMass = ballMass;
         }
     }
 }

@@ -20,12 +20,11 @@ namespace Model
             return new ModelApi(logicApi ?? LogicAbstractApi.CreateApi());
         }
 
-        public abstract void GenerateBalls(int number, EventHandler update);
+        public abstract void GenerateBalls(int number);
 
         public abstract void Stop();
 
         public abstract ObservableCollection<IVisualBall> GetVisualBalls();
 
-        public abstract void Update(object? sender, PositionUpdateArgs eventArgs);
     }
 }

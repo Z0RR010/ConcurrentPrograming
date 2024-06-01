@@ -21,26 +21,23 @@ namespace Model
 
         private ObservableCollection<IVisualBall> balls;
 
-        private event EventHandler ballsChanged;
 
 
-        public override void GenerateBalls(int number, EventHandler update)
+        public override void GenerateBalls(int number)
         {
-            ballsChanged = update;
-            foreach (int i in Enumerable.Range(number))
-            {
-                balls.Add(new VisualBall())
-            }
-            LogicApi.GenerateHandler(number, Update);
+            LogicApi.GenerateHandler(number);
             var lists = LogicApi.GetBallInfo();
             List<Vector2> positions = lists.Item1;
             List<int> radius = lists.Item2;
             balls.Clear();
-            foreach (int i in Enumerable.Range(0,positions.Count()))
+            List<EventHandler<Vector2>> eventHandlers = new();
+            foreach (int i in Enumerable.Range(0, positions.Count))
             {
-                balls.Add(new VisualBall(positions[i], radius[i],Scale));
+                IVisualBall ball = new VisualBall(positions[i], radius[i], Scale);
+                eventHandlers.Add(ball.UpdateVisualBall);
+                balls.Add(ball);
             }
-            ballsChanged.Invoke(this, EventArgs.Empty);
+            LogicApi.ConnectBalls(eventHandlers);
         }
 
         public override void Stop()
@@ -62,15 +59,6 @@ namespace Model
             
         }
 
-        public override void Update(object? sender,PositionUpdateArgs args)
-        {
-            int id = args.ID;
-            if (id < balls.Count)
-            {
-                balls[id].UpdateVisualBall(args.Position);
-                ballsChanged.Invoke(this, EventArgs.Empty);
-            }
-        }
 
 
     }

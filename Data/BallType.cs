@@ -15,9 +15,9 @@ namespace Data
         public int Radius { get; }
 
 
-        public abstract void Move();
         public abstract void Start();
         public abstract void Stop();
+        public abstract void Connect(EventHandler<Vector2> eventHandler);
 
         public abstract void UpdateSpeed(Vector2 speed);
 

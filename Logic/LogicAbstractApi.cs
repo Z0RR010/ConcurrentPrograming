@@ -12,7 +12,9 @@ namespace Logic
 {
     public abstract class LogicAbstractApi
     {
-        public abstract void GenerateHandler(List<EventHandler<Vector2>> eventHandlers);
+        public abstract void GenerateHandler(int number);
+
+        public abstract void ConnectBalls(List<EventHandler<Vector2>> eventHandlers);
 
         public abstract ICollection<IBallType> CreateRepository();
 
