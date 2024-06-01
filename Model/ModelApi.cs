@@ -13,8 +13,7 @@ namespace Model
         public override float TableHeight => 300 * Scale;
         public override float TableWidth => 600 * Scale;
         public override float BorderWidth => TableWidth + 10;
-        public float Scale = 2f;
-
+        public float Scale = 1f;
 
         public LogicAbstractApi LogicApi;
 

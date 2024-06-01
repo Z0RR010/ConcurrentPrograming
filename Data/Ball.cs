@@ -15,11 +15,11 @@ namespace Data
         public Vector2 Speed { get; private set; }
         private Thread Thread;
         private Table table;
-        public int Mass { get; private set; }
-        public int Radius { get; private set; }
+        public int Mass { get; private set; } //useless
+        public int Radius { get; private set; } //useless
         private bool run = true;
 
-        public event EventHandler<BallPositionChange> PropertyChanged;
+        public event EventHandler<BallPositionChange> PropertyChanged; //private
 
         public Vector2 Position { get; private set; }
 
@@ -31,19 +31,19 @@ namespace Data
             this.table = table;
             this.Mass = table.BallMass;
             this.Radius = table.BallRadius;
-            this.Thread = new Thread(
+            this.Thread = new Thread( //Argument = delegate void;
                 () =>
                 {
                     while (run)
                     {
                         Move();
-                        Thread.Sleep(25);
-                    }
-                });
+                        Thread.Sleep(25); //to jest zmiana stanu w suspended, żeby potem przeszedł w ready
+                    }                     //do zadanie 3) użyć stopwatch, pomierzyć czas i go przekazać jako parametr
+                });                       //        //IDisposable - coś do niszczenia wątków. Użyć dispose().
             this.Thread.IsBackground = true;
             
         }
-
+        //Vector2 nie jest immutable bo X i Y można zmienić.
         public void Start()
         {
             this.Thread.Start();
@@ -54,11 +54,11 @@ namespace Data
             run = false;
         }
 
-        public void Move()
+        public void Move() //private
         {
             lock (this)
             {
-                Vector2 newPosition = this.Position + this.Speed;
+                Vector2 newPosition = this.Position + this.Speed; //speed*1f będzie czas rzeczywisty.
                 // Bounce the ball
                 if (newPosition.X < 0)
                 {
