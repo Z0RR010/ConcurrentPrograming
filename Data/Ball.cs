@@ -14,7 +14,6 @@ namespace Data
     {
         public Vector2 Speed { get; private set; }
         private Thread Thread;
-        private int ID;
         private Table table;
         public int Mass { get; private set; }
         public int Radius { get; private set; }
@@ -24,12 +23,11 @@ namespace Data
 
         public Vector2 Position { get; private set; }
 
-        public Ball(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler, int ID, Table table)
+        public Ball(Vector2 Position, Vector2 movement, EventHandler<BallPositionChange> eventHandler, Table table)
         {
             this.PropertyChanged += eventHandler;
             this.Position = Position;
             this.Speed = movement;
-            this.ID = ID;
             this.table = table;
             this.Mass = table.BallMass;
             this.Radius = table.BallRadius;
@@ -84,7 +82,7 @@ namespace Data
                 }
                 this.Position = newPosition;
 
-                this.PropertyChanged.Invoke(this, new BallPositionChange(Position, ID));
+                this.PropertyChanged.Invoke(this, new BallPositionChange(Position));
             }
         }
         public void UpdateSpeed(Vector2 speed)

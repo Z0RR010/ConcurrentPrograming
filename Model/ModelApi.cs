@@ -28,6 +28,10 @@ namespace Model
         public override void GenerateBalls(int number, EventHandler update)
         {
             ballsChanged = update;
+            foreach (int i in Enumerable.Range(number))
+            {
+                balls.Add(new VisualBall())
+            }
             LogicApi.GenerateHandler(number, Update);
             var lists = LogicApi.GetBallInfo();
             List<Vector2> positions = lists.Item1;

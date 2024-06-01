@@ -35,19 +35,20 @@ namespace Logic
             return this.dataApi.GetRepository<IBallType>();
         }
 
-        public override void GenerateHandler(int ballsNumber, EventHandler<PositionUpdateArgs> eventHandler)
+        public override void GenerateHandler(List<EventHandler<Vector2>> eventHandlers)
         {
-            this.updatehandler = eventHandler;
+            //this.updatehandler = eventHandler;
             var randomGenerator = new Randomizer();
-            if (this.balls.Count != 0 || ballsNumber == 0)
-            {
-                return;
-            }
+            //if (this.balls.Count != 0 || ballsNumber == 0)
+            //{
+            //    return;
+            //}
+      
             lock (balls)
             {
-                foreach (int i in Enumerable.Range(0, ballsNumber))
+                foreach (var i in eventHandlers)
                 {
-                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), HandleBallUpdates, i, table);
+                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), HandleBallUpdates, table);
                     this.balls.Add(newBall);
                 }
                 this.CollisionChecking = new Thread(() =>
