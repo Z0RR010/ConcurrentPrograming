@@ -68,5 +68,10 @@ namespace LogicUnitTest
         {
             throw new NotImplementedException();
         }
+
+        public void Connect(EventHandler<ReadOnlyCollection<float>> eventHandler)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
