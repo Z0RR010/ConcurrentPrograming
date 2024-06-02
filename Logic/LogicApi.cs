@@ -21,6 +21,7 @@ namespace Logic
 
         private Thread CollisionChecking;
 
+        private readonly Logger logger;
 
         public LogicApi(DataAbstractApi data) 
         {

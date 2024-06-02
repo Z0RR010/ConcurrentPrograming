@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
 using System.Timers;
 
@@ -14,30 +10,33 @@ namespace Data
 {
     public class Ball : IBallType
     {
-        public Vector2 Speed { get; private set; }
         private Thread Thread;
         private Table table;
-        public int Mass { get; private set; } //useless
-        public int Radius { get; private set; } //useless
         private bool run = true;
-
-        private EventHandler<ReadOnlyCollection<float>> EventHandler;
         private Stopwatch stopwatch = new Stopwatch();
         private long LastTime = 0;
-
+        private readonly Logger? logger;
         public Vector2 Position { get; private set; }
+        public Vector2 Speed { get; private set; }
+        public int Mass { get; private set; }
+        public int Radius { get; private set; }
 
-        public Ball(Vector2 Position, Vector2 movement, Table table)
+        private EventHandler<ReadOnlyCollection<float>> EventHandler;
+        private readonly Object lockObject = new Object();
+
+
+        public Ball(Vector2 position, Vector2 movement, Table table, Logger? logs = null)
         {
-            this.Position = Position;
+            this.Position = position;
             this.Speed = movement;
             this.table = table;
             this.Mass = table.BallMass;
             this.Radius = table.BallRadius;
             stopwatch.Start();
+            this.logger = logs;
             long time = Stopwatch.GetTimestamp();
             LastTime = time;
-            this.Thread = new Thread( //Argument = delegate void;
+            this.Thread = new Thread(
                 () =>
                 {
                     while (run)
@@ -46,19 +45,18 @@ namespace Data
                         long elapsed = time - LastTime;
                         LastTime = time;
                         Move(elapsed);
-                        Thread.Sleep(25); //to jest zmiana stanu w suspended, żeby potem przeszedł w ready
-                    }                     //do zadanie 3) użyć stopwatch, pomierzyć czas i go przekazać jako parametr
-                });                       //        //IDisposable - coś do niszczenia wątków. Użyć dispose().
+                        Thread.Sleep(25);
+                    }
+                });
             this.Thread.IsBackground = true;
-            
         }
-        //Vector2 nie jest immutable bo X i Y można zmienić.
+
         public void Start()
         {
             this.Thread.Start();
         }
 
-        public void Stop() 
+        public void Stop()
         {
             run = false;
         }
@@ -68,12 +66,23 @@ namespace Data
             this.EventHandler = eventHandler;
         }
 
+        public void UpdateSpeed(Vector2 speed)
+        {
+            lock (lockObject)
+            {
+                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
+                this.Speed = speed;
+                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
+            }
+
+        }
+
         private void Move(long time)
         {
             lock (this)
             {
-                Vector2 newPosition = this.Position + (this.Speed * time / 60000); //speed*1f będzie czas rzeczywisty.
-                // Bounce the ball
+                Vector2 newPosition = this.Position + (this.Speed * time / 60000);
+
                 if (newPosition.X < 0)
                 {
                     newPosition = new Vector2(0, newPosition.Y);
@@ -95,6 +104,7 @@ namespace Data
                     this.Speed = new Vector2(this.Speed.X, -this.Speed.Y);
                 }
                 this.Position = newPosition;
+
                 List<float> pos = new()
                 {
                     newPosition.X,
@@ -103,10 +113,6 @@ namespace Data
                 ReadOnlyCollection<float> position = new(pos);
                 this.EventHandler.Invoke(this, position);
             }
-        }
-        public void UpdateSpeed(Vector2 speed)
-        {
-            Speed = speed;
         }
     }
 }
