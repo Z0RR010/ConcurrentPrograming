@@ -64,7 +64,7 @@ namespace LogicUnitTest
             Speed = speed;
         }
 
-        public void Connect(EventHandler<Vector2> eventHandler)
+        public void Connect(EventHandler<ReadOnlyCollection<float>> eventHandler)
         {
             throw new NotImplementedException();
         }

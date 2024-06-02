@@ -110,6 +110,8 @@ namespace Data
                     newPosition.X,
                     newPosition.Y
                 };
+
+                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
                 ReadOnlyCollection<float> position = new(pos);
                 this.EventHandler.Invoke(this, position);
             }
