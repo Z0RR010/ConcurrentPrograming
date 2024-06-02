@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Numerics;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace Logic
 { 
@@ -46,7 +47,7 @@ namespace Logic
             {
                 foreach (var i in Enumerable.Range(0,number))
                 {
-                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth - table.BallRadius), randomGenerator.GenerateFloat(0, table.TableHeight - table.BallRadius)), randomGenerator.GenerateVector(), table);
+                    var newBall = this.dataApi.GetBall(new Vector2(randomGenerator.GenerateFloat(0, table.TableWidth), randomGenerator.GenerateFloat(0, table.TableHeight)), randomGenerator.GenerateVector(), table);
                     this.balls.Add(newBall);
                 }
                 this.CollisionChecking = new Thread(() =>
@@ -61,7 +62,7 @@ namespace Logic
             }
         }
 
-        public override void ConnectBalls(List<EventHandler<Vector2>> eventHandlers)
+        public override void ConnectBalls(List<EventHandler<ReadOnlyCollection<float>>> eventHandlers)
         {
             foreach (int i in Enumerable.Range(0,balls.Count))
             {

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Numerics;
+using System.Collections.ObjectModel;
 
 namespace Model
 {
@@ -23,10 +24,10 @@ namespace Model
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public override void UpdateVisualBall(object o,Vector2 pos)
+        public override void UpdateVisualBall(object o, ReadOnlyCollection<float> pos)
         {
-            this.PositionX = pos.X * Scale;
-            this.PositionY = pos.Y * Scale;
+            this.PositionX = pos.First() * Scale;
+            this.PositionY = pos.Last() * Scale;
             RaisePropertyChanged(nameof(PositionX));
             RaisePropertyChanged(nameof(PositionY));
         }

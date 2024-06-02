@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Data
 
         public abstract void Start();
         public abstract void Stop();
-        public abstract void Connect(EventHandler<Vector2> eventHandler);
+        public abstract void Connect(EventHandler<ReadOnlyCollection<float>> eventHandler);
 
         public abstract void UpdateSpeed(Vector2 speed);
 

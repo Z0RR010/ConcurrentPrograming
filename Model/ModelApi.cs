@@ -25,12 +25,16 @@ namespace Model
 
         public override void GenerateBalls(int number)
         {
+            if (balls.Count != 0)
+            {
+                return;
+            }
             LogicApi.GenerateHandler(number);
             var lists = LogicApi.GetBallInfo();
             List<Vector2> positions = lists.Item1;
             List<int> radius = lists.Item2;
             balls.Clear();
-            List<EventHandler<Vector2>> eventHandlers = new();
+            List<EventHandler<ReadOnlyCollection<float>>> eventHandlers = new();
             foreach (int i in Enumerable.Range(0, positions.Count))
             {
                 IVisualBall ball = new VisualBall(positions[i], radius[i], Scale);

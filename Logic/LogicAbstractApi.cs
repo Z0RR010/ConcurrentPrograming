@@ -14,7 +14,7 @@ namespace Logic
     {
         public abstract void GenerateHandler(int number);
 
-        public abstract void ConnectBalls(List<EventHandler<Vector2>> eventHandlers);
+        public abstract void ConnectBalls(List<EventHandler<ReadOnlyCollection<float>>> eventHandlers);
 
         public abstract ICollection<IBallType> CreateRepository();
 
