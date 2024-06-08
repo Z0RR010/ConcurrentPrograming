@@ -40,17 +40,23 @@ namespace Data
             Task.Run(CollectData);
         }
 
-        public void AddBallToQueue(LogBall ball)
+        public void AddBallToQueue(IBallType ball, long time)
         {
-            if (_ballsDataQueue.Count < _queueSize)
+            LogBall logBall = new LogBall(ball.Position, ball.Speed, time);
+            lock (_ballsDataQueue)
             {
-                _ballsDataQueue.Enqueue(ball);
-                _queChange.Cancel();
+                if (_ballsDataQueue.Count < _queueSize)
+                {
+                    _ballsDataQueue.Enqueue(logBall);
+                    _queChange.Cancel();
+                }
+                else
+                {
+                    _queOverflow = true;
+                }
             }
-            else
-            {
-                _queOverflow = true;
-            }
+            
+            
         }
 
         private async void CollectData()
@@ -59,22 +65,26 @@ namespace Data
             {
                 if (!_ballsDataQueue.IsEmpty)
                 {
-                    while (_ballsDataQueue.TryDequeue(out LogBall serializedObject))
+                    lock (_ballsDataQueue)
                     {
-                        JObject jsonObject = JObject.FromObject(serializedObject);
-                        jsonObject["Position"] = serializedObject.Position.ToString();
-                        jsonObject["Speed"] = serializedObject.Speed.ToString();
-                        _jLogArray.Add(jsonObject);
-                        if (_queOverflow)
+                        while (_ballsDataQueue.TryDequeue(out LogBall serializedObject))
                         {
-                            JObject errorMessage = new JObject
+                            JObject jsonObject = JObject.FromObject(serializedObject);
+                            jsonObject["Position"] = serializedObject.Position.ToString();
+                            jsonObject["Speed"] = serializedObject.Speed.ToString();
+                            _jLogArray.Add(jsonObject);
+                            if (_queOverflow)
                             {
-                                ["Error"] = "Buffer size is too small skipped logging"
-                            };
-                            _jLogArray.Add(errorMessage);
-                            _queOverflow = false;
+                                JObject errorMessage = new JObject
+                                {
+                                    ["Error"] = "Buffer size is too small skipped logging"
+                                };
+                                _jLogArray.Add(errorMessage);
+                                _queOverflow = false;
+                            }
                         }
                     }
+
                     if (_jLogArray.Count > _queueSize / 2)
                     {
                         SaveToFile();

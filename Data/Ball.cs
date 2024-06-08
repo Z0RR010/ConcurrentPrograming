@@ -25,7 +25,7 @@ namespace Data
         private readonly Object lockObject = new Object();
 
 
-        public Ball(Vector2 position, Vector2 movement, Table table, Logger? logs = null)
+        public Ball(Vector2 position, Vector2 movement, Table table)
         {
             this.Position = position;
             this.Speed = movement;
@@ -33,15 +33,15 @@ namespace Data
             this.Mass = table.BallMass;
             this.Radius = table.BallRadius;
             stopwatch.Start();
-            this.logger = logs;
-            long time = Stopwatch.GetTimestamp();
-            LastTime = time;
+            this.logger = Logger.GetInstance();
+            //long time = Stopwatch.GetTimestamp();
+            //LastTime = time;
             this.Thread = new Thread(
                 () =>
                 {
                     while (run)
                     {
-                        time = Stopwatch.GetTimestamp();
+                        long time = stopwatch.ElapsedTicks;
                         long elapsed = time - LastTime;
                         LastTime = time;
                         Move(elapsed);
@@ -70,9 +70,8 @@ namespace Data
         {
             lock (lockObject)
             {
-                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
                 this.Speed = speed;
-                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
+                logger?.AddBallToQueue(this, stopwatch.ElapsedMilliseconds);
             }
 
         }
@@ -111,7 +110,7 @@ namespace Data
                     newPosition.Y
                 };
 
-                logger?.AddBallToQueue(new LogBall(Position, Speed, Stopwatch.GetTimestamp()));
+                logger?.AddBallToQueue(this,stopwatch.ElapsedMilliseconds);
                 ReadOnlyCollection<float> position = new(pos);
                 this.EventHandler.Invoke(this, position);
             }

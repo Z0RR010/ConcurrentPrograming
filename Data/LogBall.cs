@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Data
 {
     
-    public class LogBall
+    public record LogBall
     {
         public Vector2 Position;
         public Vector2 Speed;
