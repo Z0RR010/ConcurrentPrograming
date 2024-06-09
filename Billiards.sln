@@ -17,7 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicUnitTest", "LogicUnitTest\LogicUnitTest.csproj", "{BA3A3A06-7066-4F98-8DC9-EFF0D55C05E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUnitTest", "DataUnitTest\DataUnitTest.csproj", "{A58D75F8-C51F-4391-BEBA-01F170A93ED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataUnitTest", "DataUnitTest\DataUnitTest.csproj", "{A58D75F8-C51F-4391-BEBA-01F170A93ED5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D766DF3D-6D30-48FD-9AC5-DF4E92CC3A72}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
