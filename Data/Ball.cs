@@ -34,8 +34,6 @@ namespace Data
             this.Radius = table.BallRadius;
             stopwatch.Start();
             this.logger = Logger.GetInstance();
-            //long time = Stopwatch.GetTimestamp();
-            //LastTime = time;
             this.Thread = new Thread(
                 () =>
                 {

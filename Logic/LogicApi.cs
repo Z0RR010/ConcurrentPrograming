@@ -84,13 +84,6 @@ namespace Logic
             }
         }
 
-        //void HandleBallUpdates(object? ball, BallPositionChange Position)
-        //{
-        //    Vector2 pos = Position.Position;
-        //    //updatehandler.Invoke(this, new PositionUpdateArgs(pos));
-        //}
-
-
         private void CheckBallCollisions()
         {
             lock (balls)
