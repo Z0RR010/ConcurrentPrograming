@@ -14,7 +14,7 @@ namespace Model
         public override float Radius{ get; set; }
         private static float Scale;
 
-        public VisualBall(Vector2 pos, int radius, float scale) //relacja model-logic, zachodzi tu na granicy jedna ważna rzecz. Jaka?
+        public VisualBall(Vector2 pos, int radius, float scale)
         {
             Scale = scale;
             Radius = radius * scale;

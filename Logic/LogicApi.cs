@@ -27,7 +27,7 @@ namespace Logic
         {
             this.dataApi = data;
             this.balls = dataApi.GetRepository<IBallType>();
-            this.table = dataApi.GetTable();//GetTable() sprawdzić czy ok
+            this.table = dataApi.GetTable();
         }
 
         public override ICollection<IBallType> CreateRepository()
