@@ -131,7 +131,7 @@ namespace LogicUnitTest
                         handlers.Add(test.ElementAt(i).HandlePositionUpdate);
                     }
                     logicApi.ConnectBalls(handlers);
-                    logicApi.Stop();
+                    
                     Thread.Sleep(100);
                     logicApi.Stop();
                     foreach (var t in test)
@@ -147,7 +147,7 @@ namespace LogicUnitTest
                     var logicApi = LogicAbstractApi.CreateApi(dataApi);
                     int ballCount = 3;
                     logicApi.GenerateHandler(ballCount);
-
+                    logicApi.Stop();
 
                     var (positions, radii) = logicApi.GetBallInfo();
                     Assert.AreEqual(0, positions.Count);
