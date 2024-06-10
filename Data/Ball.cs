@@ -16,13 +16,31 @@ namespace Data
         private Stopwatch stopwatch = new Stopwatch();
         private long LastTime = 0;
         private readonly Logger? logger;
-        public Vector2 Position { get; private set; }
-        public Vector2 Speed { get; private set; }
+        public Vector2 Position {
+            get {
+                lock (this)
+                {
+                    return this.Position;
+                }
+            }
+
+            private set { this.Position = value; }
+        }
+        public Vector2 Speed {
+            get
+            {
+                lock (this)
+                {
+                    return this.Speed;
+                }
+            }
+
+            private set { this.Speed = value; }
+        }
         public int Mass { get; private set; }
         public int Radius { get; private set; }
 
         private EventHandler<ReadOnlyCollection<float>> EventHandler;
-        private readonly Object lockObject = new Object();
 
 
         public Ball(Vector2 position, Vector2 movement, Table table)
@@ -66,7 +84,7 @@ namespace Data
 
         public void UpdateSpeed(Vector2 speed)
         {
-            lock (lockObject)
+            lock (this)
             {
                 this.Speed = speed;
                 logger?.AddBallToQueue(this, stopwatch.ElapsedMilliseconds);

@@ -103,7 +103,7 @@ namespace Data
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(JsonConvert.SerializeObject(_jLogArray, Formatting.Indented));
             _jLogArray.Clear();
-            await File.AppendAllTextAsync(_logFilePath, stringBuilder.ToString());
+            await File.AppendAllTextAsync(_logFilePath, stringBuilder.ToString(), Encoding.UTF8);
             stringBuilder.Clear();
         }
     }
