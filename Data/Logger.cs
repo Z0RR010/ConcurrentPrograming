@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Data
 {
-    public class Logger
+    public class Logger : IDisposable
     {
         private readonly string _logFilePath;
         private readonly ConcurrentQueue<LogBall> _ballsDataQueue;
@@ -105,6 +105,11 @@ namespace Data
             _jLogArray.Clear();
             await File.AppendAllTextAsync(_logFilePath, stringBuilder.ToString(), Encoding.UTF8);
             stringBuilder.Clear();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
